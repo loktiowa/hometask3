@@ -7,12 +7,12 @@ from datetime import datetime
     #os.system('clear')
 
 def get_cpu():
-    print("\n", "*"*20, "CPU INFO","*"*20, "\n")
-    print(f"CPU load: {psutil.cpu_percent()}%")
+    print("\n", "*"*25, "CPU INFO","*"*25, "\n")
+    #print(f"CPU load: {psutil.cpu_percent()}%")
     
     for i, percentage in enumerate(psutil.cpu_percent(percpu=True)):
         i+=1
-        print(f"cpu{i}:{percentage}%", int(percentage)*"|")
+        print(f"cpu {i}[{int(percentage/2)*"|"}{(50-(int(percentage/2)))*" "}]{percentage}%")
         
 def human_size(bytes, suffix="B"):
     factor = 1024
@@ -22,18 +22,21 @@ def human_size(bytes, suffix="B"):
         bytes /= factor
 
 def get_mem():
-    print("\n","*"*20, "MEMORY INFO","*"*20, "\n")
+    print("\n","*"*24, "MEMORY INFO","*"*24, "\n")
 
     mem = psutil.virtual_memory()
-    print(f"RAM total: {human_size(mem.total)}")
-    print(f"RAM available: {human_size(mem.available)}")
-    print(f"RAM usege: {human_size(mem.used)}")
-
-    print(f"{mem.percent}%")
-
+    # print(f"RAM total: {human_size(mem.total)}")
+    # print(f"RAM available: {human_size(mem.available)}")
+    # print(f"RAM usege: {human_size(mem.used)}")
+    # print(f"{mem.percent}%")
     swap = psutil.swap_memory()
-    print(f"swap total: {human_size(swap.total)}")
-    print(f"swap used: {human_size(swap.used)}")
+    # print(f"swap total: {human_size(swap.total)}")
+    # print(f"swap used: {human_size(swap.used)}")
+    # print(f"{swap.percent}%")
+
+    print(f"RAM  [{int(mem.percent/2)*"|"}{(50-int(mem.percent/2))*" "}]{human_size(mem.used)}/{human_size(mem.total)}")
+    print(f"SWAP [{int(swap.percent/2)*"|"}{(50-int(swap.percent/2))*" "}]{human_size(swap.used)}/{human_size(swap.total)}")
+
 
 def main():
     while True:
