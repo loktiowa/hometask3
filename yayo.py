@@ -1,14 +1,19 @@
+import time
 import psutil
 import os
 from datetime import datetime
 
+    #time.sleep(1)
+    #os.system('clear')
+
 def get_cpu():
     print("\n", "*"*20, "CPU INFO","*"*20, "\n")
-    for i, percentage in enumerate(psutil.cpu_percent(percpu=True, interval=1)):
-        i+=1
-        print(f"cpu{i}:{percentage}%")
     print(f"CPU load: {psutil.cpu_percent()}%")
-
+    
+    for i, percentage in enumerate(psutil.cpu_percent(percpu=True)):
+        i+=1
+        print(f"cpu{i}:{percentage}%", int(percentage)*"|")
+        
 def human_size(bytes, suffix="B"):
     factor = 1024
     for unit in ["","K","M","G","T","P"]:
@@ -30,19 +35,12 @@ def get_mem():
     print(f"swap total: {human_size(swap.total)}")
     print(f"swap used: {human_size(swap.used)}")
 
+def main():
+    while True:
+        get_cpu()
+        get_mem()
+        time.sleep(0.8)
+        os.system('clear')
 
-
-
-
-get_cpu()
-get_mem()
-
-
-
-
-
-
-
-# if __name__=="__main__":
-#     main()    
-
+if __name__=="__main__":
+     main()    
